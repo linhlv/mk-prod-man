@@ -1,0 +1,47 @@
+﻿<div>
+    <div class="modal-header">
+        <h3 class="modal-title">
+            {{vm.product.code}}<a class="pull-right cursor-link" ng-click="vm.close()">
+                <i class="fa fa-fw fa-close"></i>
+            </a>
+        </h3>
+    </div>
+    <div class="modal-body">
+        <p>{{vm.product.name}}</p>
+        <uib-carousel interval="myInterval" no-wrap="noWrapSlides">
+            <uib-slide ng-repeat="pic in vm.product.productImages" active="pic.active">
+                <img ng-src="@Url.Content("~/Content/data/images/prod")/{{pic.imageFileUrl}}" style="margin: auto;">
+                <div class="carousel-caption">
+                    <p>
+                        <a class="btn btn-danger" ng-disabled="vm.deleting" ng-click="vm.deleteImage(pic)"><i ng-class="{'fa fa-spinner fa-spin' : (vm.deleting), 'fa fa-fw fa-trash' : (!vm.deleting)}"></i></a>
+                    </p>
+                </div>
+            </uib-slide>
+        </uib-carousel>
+
+        <div class="paddingtop-10">
+            <form novalidate
+                  ng-submit="vm.form.$valid && vm.uploadImage()"
+                  name="vm.form">
+                <fieldset ng-disabled="vm.saving">
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6">
+                            <div class="form-group has-feedback" form-group-validation="productImageFile">
+                                <label class="control-label">File</label>
+                                <input class="form-control" id="productImageFile" name="productImageFile" type="file" data-ak-file-model="vm.uploadingImage.file" valid-file ng-model="vm.uploadingImage.file" ng-required="true" />
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <div class="form-group">
+                                <label class="control-label"></label>
+                                <button type="submit" class="btn btn-primary fix-btn-nolabel" ng-disabled="vm.saving">
+                                    <i ng-class="{'fa fa-spinner fa-spin' : (vm.saving), 'fa fa-upload' : (!vm.saving)}"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

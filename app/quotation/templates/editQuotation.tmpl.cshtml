@@ -1,0 +1,56 @@
+﻿@using Kenrapid.CRM.Web.Helpers
+@model Kenrapid.CRM.Web.Models.Quotation.QuotationModel
+
+@{
+    var m = Html.Angular().ModelFor("vm.quotation");
+}
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title">Edit Quotation</h3>
+    </div>
+    <div class="modal-body">
+        <form novalidate
+              ng-submit="vm.form.$valid && vm.add()"
+              name="vm.form">
+            <fieldset ng-disabled="vm.saving">
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        @m.FormGroupNewFor(x => x.CompanyName)
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-xs-6">
+                        @m.FormGroupNewFor(x => x.RateOfExchange)
+                    </div>
+                    <div class="col-md-6 col-xs-6">
+                        <label class="control-label">Total</label>
+                        <span class="input-group"><i class="fa fa-fa fa-dollar"></i>{{vm.total}}</span>
+                    </div>
+                </div>
+
+                <div class="row" ng-repeat="qi in vm.quotations">
+                    <div class="col-md-3 col-xs-9">
+                        <img ng-src="@Url.Content("~/Content/data/images/prod")/{{(qi.picture) ? qi.picture: 'no-image.png'}}"
+                             alt=" bootsnipp"
+                             class="img-rounded img-responsive" />
+                    </div>
+                    <div class="col-md-9 col-xs-9">
+                        <h6 class="prod-code">{{qi.codeNo}}</h6>
+                        <span>{{qi.name}}</span>
+                        <div class="input-group">
+                            <span class="input-group-addon">%</span>
+                            <input type="text" class="form-control rate-number" aria-label="">
+                        </div>
+                        <span><i class="fa fa-fa fa-dollar"></i>{{qi.price}} / <i class="fa fa-fa fa-dollar"></i>{{qi.priceFOB}}</span>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-danger">Export to Excel</button>
+        <button type="button" class="btn btn-warning" ng-click="$parent.$dismiss()">Cancel</button>
+    </div>
+</div>

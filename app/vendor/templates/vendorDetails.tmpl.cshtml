@@ -1,0 +1,46 @@
+﻿@using Kenrapid.CRM.Web.Helpers
+@model Kenrapid.CRM.Web.Models.Vendor.VendorViewModel
+@{
+    var vendor = Html.Angular().ModelFor("vm.vendor");
+}
+
+<li class="list-group-item marginbot-5">
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <div>
+                <h6 class="marginbot-5">
+                    <a href="#">@vendor.BindingFor(x => x.Name)</a>
+                    <span class="action pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" title="Edit" data-ng-click="vm.edit()">
+                            <span class="fa fa-pencil"></span>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-xs" title="Delete" data-ng-click="vm.vendorDelete()">
+                            <span class="fa fa-trash"></span>
+                        </button>
+                    </span>
+                </h6>
+                <div class="row">
+                    <div class="mic-info">
+                        <div class="col-xs-12 col-md-4 col-lg-3">
+                            <a href="@vendor.BindingFor(x => x.WorkEmail)">@vendor.BindingFor(x => x.WorkEmail)</a>
+                        </div>
+                        <div class="col-xs-12 col-md-4 col-lg-3">
+                            <a href="@vendor.BindingFor(x => x.HomeEmail)">@vendor.BindingFor(x => x.HomeEmail)</a>
+                        </div>
+                        <div class="col-xs-12 col-md-4 col-lg-3">Office Phone: @vendor.BindingFor(x => x.WorkPhone)</div>
+                        <div class="col-xs-12 col-md-4 col-lg-3">Home Phone: @vendor.BindingFor(x => x.HomePhone)</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mic-info">
+                        <div class="col-xs-12 col-md-6 col-lg-6"><span class="wrapword"><strong>Work Address:</strong> @vendor.BindingFor(x => x.WorkAddress)</span></div>
+                        <div class="col-xs-12 col-md-6 col-lg-6"><span class="wrapword"><strong>Home Address:</strong> @vendor.BindingFor(x => x.HomeAddress)</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="comment-text wrapword">
+                <strong>Description:</strong> @vendor.BindingFor(x => x.Description)
+            </div>           
+        </div>
+    </div>
+</li>

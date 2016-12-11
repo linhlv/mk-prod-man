@@ -1,0 +1,31 @@
+﻿@using Kenrapid.CRM.Web.Helpers
+@model Kenrapid.CRM.Web.Models.Category.EditCategoryForm
+<form novalidate
+      ng-submit="vm.form.$valid && vm.save()"
+      name="vm.form">
+    <fieldset ng-disabled="vm.saving">
+
+        <div class="modal-header">
+            <h3 class="modal-title">Edit Category</h3>
+        </div>
+
+        <div class="modal-body">
+
+            <div class="alert alert-info" ng-hide="vm.errorMessage != null">
+                Enter details for the new category.
+            </div>
+            <div class="alert alert-danger" ng-show="vm.errorMessage != null">
+                {{vm.errorMessage}}
+            </div>
+
+            @Html.Angular().FormForModel("vm.editingCategory")
+
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-danger">Update Category</button>
+            <button type="button" class="btn btn-warning" ng-click="$parent.$dismiss()">Cancel</button>
+        </div>
+
+    </fieldset>
+</form>

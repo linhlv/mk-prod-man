@@ -1,0 +1,92 @@
+﻿@using Kenrapid.CRM.Web.Helpers
+@model Kenrapid.CRM.Web.Models.Product.ProductViewModel
+@{
+    var m = Html.Angular().ModelFor("vm.product");
+}
+
+<div class="col-md-3 col-sm-6 col-lg-2">
+    <div class="well well-sm pi">
+        <div class="row marginbot-10">
+            <div class="col-md-12 col-xs-12 col-lg-12">
+                <a class="cursor-link" ng-click="vm.showImages()">
+                    <img ng-src="{{vm.productImageUrl()}}"
+                         alt=" bootsnipp"
+                         class="img-rounded img-responsive" />
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-xs-10 col-lg-10">
+                <h5 class="prod-code marginbot-5">
+                    @m.BindingFor(x => x.Code) <br/>
+                    <span class="price" data-ng-bind="product.listPrice | currency:'VND ':0"></span> - <span data-ng-bind="product.lastPriceDate|date : 'MM/yyyy'"></span>
+                </h5>
+            </div>
+            <div class="col-md-2 col-xs-2 col-lg-2">
+                <div class="pull-right prod">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="cursor-link" ng-click="vm.edit()"><i class="fa fa-edit"></i> Edit</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="cursor-link" ng-click="vm.editPrice()"><i class="fa fa-fw fa-dollar"></i>Edit Price</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a class="cursor-link" ng-click="vm.delete()"><i class="fa fa-trash-o"></i> Delete</a></li>
+                        <li class="divider"></li>
+                        <li><a class="cursor-link" ng-click="vm.addToQuotation()"><i class="fa fa-tasks"></i> {{vm.addRemoveQuotationText()}}<i ng-show="vm.product.quotationSelected" class="fa fa-check pull-right"></i></a></li>
+                        <li class="divider"></li>
+                        <li><a class="cursor-link" ng-click="vm.showDescription(vm.product)"><i class="fa fa-caret-square-o-right"></i> Description</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12 col-lg-12">
+                @m.BindingFor(x => x.Name)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12 col-lg-12">
+                @m.BindingFor(x => x.Vendor.Name)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12 col-lg-12">
+                @m.BindingFor(x => x.Material.Name) @m.BindingFor(x => x.Category.Name)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12 col-lg-12">
+                <i>SIZE</i>
+            </div>
+        </div>
+        <div class="row shift-left">
+            <div class="col-md-12 col-xs-12 col-lg-12">
+                <i class="fa fa-square"></i>&nbsp;@m.BindingFor(x => x.Size)
+            </div>
+        </div>
+        <div class="row shift-left" ng-repeat="size in product.productSizes">
+            <div class="col-md-12 col-xs-12 col-lg-12">
+                <i class="fa fa-square"></i>&nbsp;{{size.value}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12 col-lg-12">
+                <i>PACKAGING</i>
+            </div>
+        </div>
+        <div class="row shift-left">
+            <div class="col-md-6 col-xs-6 col-lg-6">
+                <i class="fa fa-archive"></i>&nbsp;@m.BindingFor(x => x.Packaging)
+            </div>
+        </div>
+        <div class="row" ng-show="vm.product.quotationSelected">
+            <div class="col-md-12 col-xs-12 col-lg-12 price">
+                <i class="fa fa-check-square"></i>&nbsp;Quotation
+            </div>
+        </div>
+    </div>
+</div>

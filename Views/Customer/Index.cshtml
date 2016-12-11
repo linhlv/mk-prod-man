@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Customers";
+}
+
+<div ng-controller="CustomerListController as vm">
+    <h1 class="page-header">
+        <i class="fa fa-fw fa-users fa-lg"></i> Customers
+        <a class="pull-right" href="" ng-click="vm.add()"><i class="fa fa-plus-circle"></i></a>
+    </h1>
+    <div class="search-box">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="search-box">
+                    <div class="input-group" id="adv-search">
+                        <input type="text" class="form-control" placeholder="Search for vendors..." ng-model="vm.filter.keyword"/>
+                        <div class="input-group-btn">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-primary" ng-click="vm.search()"><span class="fa fa-fw fa-search" aria-hidden="true"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <nav class="pull-right" ng-show="(vm.filter.totalItems / vm.filter.itemsPerPage) > 1">
+                    @(Html.Angular().UIPagination()
+                          .Model("vm.filter.page")
+                          .TotalItems("vm.filter.totalItems")
+                          .ItemsPerPage("vm.filter.itemsPerPage")
+                          .OnPageChanged("vm.pageChanged()")
+                          .FirstText("<<")
+                          .PreviousText("<")
+                          .NextText(">")
+                          .LastText(">>")
+                          .MaxSize(5)
+                          .Rotate(false)
+                          .BoundaryLinks(true)
+                          .DirectionLinks(true)
+                          )
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div ng-show="vm.isLoading">
+            <i class="fa fa-spinner fa-spin"></i> Loading...
+        </div>
+    </div>
+    <div class="row">
+        <div class="alert-container"></div>
+    </div>
+    <div class="customer-list">
+        <customer-details ng-repeat="customer in vm.customers" customer="customer"></customer-details>
+    </div>
+</div>

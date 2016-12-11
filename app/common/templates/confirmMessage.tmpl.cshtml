@@ -1,0 +1,28 @@
+﻿@using Kenrapid.CRM.Web.Helpers
+@model Kenrapid.CRM.Web.Models.Product.AddProductForm
+
+@{
+    var product = Html.Angular().ModelFor("vm.product");
+}
+
+<form novalidate
+      ng-submit="vm.form.$valid && vm.add()"
+      name="vm.form">
+    <fieldset ng-disabled="vm.saving">
+        <div class="modal-header">
+            <h3 class="modal-title">
+                {{vm.title}}
+            </h3>
+        </div>
+
+        <div class="modal-body">
+            {{vm.message}}
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-danger" ng-click="vm.yes()">Yes</button>
+            <button type="button" class="btn btn-warning" ng-click="$parent.$dismiss()">No</button>
+        </div>
+
+    </fieldset>
+</form>

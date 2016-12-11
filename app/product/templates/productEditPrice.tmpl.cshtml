@@ -1,0 +1,47 @@
+﻿@model Kenrapid.CRM.Web.Models.Product.ProductUpdatePriceViewModel
+
+@{
+    var product = Html.Angular().ModelFor("vm.editPriceProduct");
+}
+<form novalidate
+      ng-submit="vm.form.$valid && vm.update()"
+      name="vm.form">
+    <fieldset ng-disabled="vm.saving">
+        <div>
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    {{vm.product.code}}
+                </h3>
+            </div>
+            <div class="modal-body">
+                <p class="marginbottom-0">{{vm.product.name}}</p>
+                <div class="paddingtop-10">
+                    <div class="row">
+                        <div class="col-md-6 col-xs-12">
+                            @product.FormGroupNewFor(x => x.ListPrice)
+                        </div>
+                        <div class="col-md-6 col-xs-12">
+                            <div class="form-group has-feedback has-feedback has-success">
+                                <label class="control-label">Price Date</label>
+                               
+
+                                <div class="form-group">
+                                    <div class='input-group date' datetimez id='datetimepicker1' ng-model="dt">
+                                        <input type='text' class="form-control" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger" ng-disabled="vm.saving">Update Price</button>
+                <button type="button" class="btn btn-warning" ng-click="$parent.$dismiss()">Cancel</button>
+            </div>
+        </div>
+    </fieldset>
+</form>

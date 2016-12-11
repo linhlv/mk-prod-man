@@ -1,0 +1,32 @@
+﻿@using Kenrapid.CRM.Web.Helpers
+@model Kenrapid.CRM.Web.Models.User.AddUserViewModel
+<form novalidate
+      ng-submit="vm.form.$valid && vm.add()"
+      name="vm.form">
+    <fieldset ng-disabled="vm.saving">
+
+        <div class="modal-header">
+            <h3 class="modal-title">Add User</h3>
+        </div>
+
+        <div class="modal-body">
+
+            <div class="alert alert-info" ng-hide="vm.errorMessage != null">
+                Enter details for the new user.
+            </div>
+            <div class="alert alert-danger" ng-show="vm.errorMessage != null">
+                {{vm.errorMessage}}
+            </div>
+
+            @Html.Angular().FormForModel("vm.user")
+            
+
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-danger">Create</button>
+            <button type="button" class="btn btn-warning" ng-click="$parent.$dismiss()">Cancel</button>
+        </div>
+
+    </fieldset>
+</form>

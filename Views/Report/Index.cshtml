@@ -1,0 +1,21 @@
+﻿@using Kenrapid.CRM.Web.Helpers
+@using Kenrapid.CRM.Web.Models.Report
+@model dynamic
+@{
+    ViewBag.Title = "Reports";
+}
+
+<div ng-controller="homeController as vm">
+    <h1 class="page-header">
+        <i class="fa fa-fw fa-line-chart fa-lg"></i>Report
+    </h1>
+    @(Html.Angular().UIGridTagFor<ReportController>(c => c.NewCustomers(), "vm.gridOptions")
+        .Title("New Customers")
+        .Columns<NewCustomerReportViewModel>(config =>
+        {
+            config.Add(x => x.Name);
+            config.Add(x => x.WorkEmail);
+            config.Add(x => x.CreateDate, "Date Joined", "date:'MM/dd/yyyy'");
+        })
+    )
+</div>

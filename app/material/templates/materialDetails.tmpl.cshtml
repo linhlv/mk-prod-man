@@ -1,0 +1,23 @@
+﻿<li class="list-group-item marginbot-5">
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <div>
+                <a href="http://bootsnipp.com/BhaumikPatel/snippets/Obgj">{{material.name}}</a>
+                @*<div class="mic-info">
+                    By: <a href="#">Bhaumik Patel</a> on 11 Nov 2013
+                </div>*@
+            </div>
+            <div class="comment-text">
+                {{material.description}}
+            </div>
+            <div class="action">
+                <button type="button" class="btn btn-primary btn-xs" title="Edit" ng-click="vm.edit()">
+                    <span class="fa fa-pencil"></span>
+                </button>
+                <button type="button" class="btn btn-danger btn-xs" ng-click="vm.deleteItem()" title="Delete">
+                    <span class="fa fa-trash"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</li>

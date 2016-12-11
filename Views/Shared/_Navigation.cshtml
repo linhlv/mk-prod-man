@@ -1,0 +1,109 @@
+﻿@using Kenrapid.CRM.Web.Infrastructure
+@{
+    ICurrentUser _currentUser = DependencyResolver.Current.GetService<ICurrentUser>();
+    var userName = "";
+    if (_currentUser.User != null)
+    {
+        userName = _currentUser.User.UserName;
+    }
+}
+
+@if (Request.IsAuthenticated)
+{
+    <div class="container">
+        <ul id="gn-menu" class="gn-menu-main">
+            <li class="gn-trigger">
+                <a class="gn-icon gn-icon-menu"><span>Menu</span></a>
+                <nav class="gn-menu-wrapper">
+                    <div class="gn-scroller">
+                        <ul class="gn-menu fa-menu-fixed">
+                            <li>
+                                <a href="@(Html.BuildUrlFromExpression<OrderController>(c => c.Index()))">
+                                    <i class="fa fa-fw fa-tasks fa-lg"></i>Orders
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@(Html.BuildUrlFromExpression<ProductController>(c => c.Index()))">
+                                    <i class="fa fa-fw fa-archive fa-lg"></i>Products
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@(Html.BuildUrlFromExpression<CustomerController>(c => c.Index()))">
+                                    <i class="fa fa-fw fa-users fa-lg"></i>Customers
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@(Html.BuildUrlFromExpression<VendorController>(c => c.Index()))">
+                                    <i class="fa fa-fw fa-industry fa-lg"></i>Factories
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@(Html.BuildUrlFromExpression<CategoryController>(c => c.Index()))">
+                                    <i class="fa fa-fw fa-list fa-lg"></i>Categories
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@(Html.BuildUrlFromExpression<MaterialController>(c => c.Index()))">
+                                    <i class="fa fa-fw fa-magic fa-lg"></i>Materials
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@(Html.BuildUrlFromExpression<ColorController>(c => c.Index()))">
+                                    <i class="fa fa-fw fa-th fa-lg"></i>Colors
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@(Html.BuildUrlFromExpression<QuotationController>(c => c.Index()))">
+                                    <i class="fa fa-fw fa-bars fa-lg"></i>Edit Quotation
+                                </a>
+                            </li>
+                            @*<li>
+                                <a href="@(Html.BuildUrlFromExpression<ReportController>(c => c.Index()))">
+                                    <i class="fa fa-fw fa-line-chart fa-lg"></i>Reports
+                                </a>
+                            </li>*@
+
+                            @if (userName=="admin")
+                            {
+                                <li>
+                                    <a href="@(Html.BuildUrlFromExpression<UserManagementController>(c => c.Index()))">
+                                        <i class="fa fa-fw fa-users fa-lg"></i>Users
+                                    </a>
+                                </li>
+                            }
+                            <li>
+                                <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-fw fa-power-off fa-lg"></i>Log Out</a>
+                            </li>
+
+                        </ul>
+
+                    </div><!-- /gn-scroller -->
+                </nav>
+            </li>
+            <li>
+                <a href="#" class="paddingleft-10 paddingright-10">
+                    <img src="@Url.Content("~/Content/img/logo.png")" />
+                </a>
+            </li>
+            <li class="dropdown user" id="header-user">
+                <a href="#" class="dropdown-toggle paddingleft-20 paddingright-20" data-toggle="dropdown">
+                    <img alt="" src="@Url.Content("~/Content/img/empty.png")" />
+                    <span class="username">@userName</span>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                }
+                <ul class="dropdown-menu">
+                    @*<li><a href="@(Html.BuildUrlFromExpression<ProfileController>(c => c.Index()))"><i class="fa fa-user"></i> My Profile</a></li>*@
+                    <li><a href="@(Html.BuildUrlFromExpression<ProfileController>(c => c.ChangePassword()))"><i class="fa fa-key"></i>Change Password</a></li>
+                    @*<li><a href="#"><i class="fa fa-cog"></i>Account Settings</a></li>*@
+                    <li>
+                        <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off"></i> Log Out</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+}

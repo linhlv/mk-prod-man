@@ -1,0 +1,39 @@
+﻿@using Kenrapid.CRM.Web.Helpers
+@model Kenrapid.CRM.Web.Models.Product.AddProductForm
+
+@{
+    var product = Html.Angular().ModelFor("vm.product");
+}
+
+<div class="crm">
+    <div class="modal-header">
+        <h3 class="modal-title">
+            @product.BindingFor(x => x.Code)
+            <a class="pull-right cursor-link" ng-click="vm.close()">
+                <i class="fa fa-fw fa-close"></i>
+            </a>
+        </h3>
+    </div>
+    <div class="modal-body">
+        <strong>
+            @product.BindingFor(x => x.Name)
+        </strong>
+        <p class="wrapword">
+            @product.BindingFor(x => x.Description)
+        </p>
+        <strong>CM:</strong>
+        <ul>
+            <li>W:@product.BindingFor(x => x.CMW)</li>
+            <li>D:@product.BindingFor(x => x.CMD)</li>
+            <li>H:@product.BindingFor(x => x.CMH)</li>
+        </ul>
+        <strong>Packing:</strong>
+        <ul>
+            <li>CBM:@product.BindingFor(x => x.CBM)</li>
+            <li>PCS/SE:@product.BindingFor(x => x.PCSSE)</li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+
+    </div>
+</div>

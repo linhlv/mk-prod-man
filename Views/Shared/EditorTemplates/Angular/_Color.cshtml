@@ -1,0 +1,26 @@
+﻿@using AutoMapper;
+@using AutoMapper.QueryableExtensions;
+@using Kenrapid.CRM.Web.Data;
+@using Kenrapid.CRM.Web.Domain
+@using Kenrapid.CRM.Web.Infrastructure
+@using Kenrapid.CRM.Web.Models.Color
+
+@{
+    var dbContext = Context.GetContainer().GetInstance<KenrapidDbContext>();
+    var modelList = dbContext.Colors.Project()
+        .To<ColorViewModel>()
+        .Select(t=> new SelectListItem
+        {
+              Text  = t.Name,
+              Value = t.Id.ToString()
+        }).ToList();
+
+    modelList.Insert(0, new SelectListItem
+    {
+        Text = "--None--",
+        Value = ""
+    });
+
+    var options = modelList.ToArray();
+}
+@Html.DropDownList("", options, new { @class = "form-control", ng_model = Html.Angular().BindingForModel().ToHtmlString(), required = "required" })

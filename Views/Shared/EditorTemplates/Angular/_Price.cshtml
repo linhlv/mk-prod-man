@@ -1,0 +1,9 @@
+﻿@model string
+@(Html.Angular()
+    .NgTextBox("number")
+    .Classes("form-control")
+    .Watermark(ViewData.ModelMetadata.Watermark)
+    .Name(ViewData.ModelMetadata.PropertyName)
+    .Value(ViewData.Model)
+    .NgModel(Html.Angular().BindingForModel().ToHtmlString())
+)

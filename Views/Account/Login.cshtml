@@ -1,0 +1,80 @@
+﻿@model Kenrapid.CRM.Web.Models.LoginViewModel
+
+@{
+    Layout = null;
+    ViewBag.Title = "Log in";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MK :: Login</title>
+    @Styles.Render("~/Content/login.css")
+</head>
+<body class="login">
+    <!-- PAGE -->
+    <section id="page">
+        <!-- HEADER -->
+        <header>
+            <!-- NAV-BAR -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <div id="logo">
+                            @*<a href="index.html"><img src="img/logo/logo-alt.png" height="40" alt="logo name" /></a>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/NAV-BAR -->
+        </header>
+        <!-- LOGIN -->
+        <section id="login" class="visible">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <div class="login-box-plain">
+                            <div class="center-block acenter">
+                                <img class="paddingleft-5" src="@Url.Content("~/Content/img/big-logo.png")"/>
+                            </div>
+                            <h2 class="bigintro">@ViewBag.Title.</h2>
+                            @using (Html.BeginForm("Login", "Account", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {role = "form"}))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true)
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <i class="fa fa-envelope"></i>
+                                    @Html.TextBoxFor(m => m.UserName, new {@class = "form-control"})
+                                    @Html.ValidationMessageFor(m => m.UserName)
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <i class="fa fa-lock"></i>
+                                    @Html.PasswordFor(m => m.Password, new {@class = "form-control"})
+                                    @Html.ValidationMessageFor(m => m.Password)
+                                </div>
+                                <div class="form-actions">
+                                    <label class="checkbox">
+                                        @Html.CheckBoxFor(m => m.RememberMe, new {@class = "uniform"}) Remember me
+                                    </label>
+                                    <button type="submit" class="btn btn-danger">Submit</button>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--/LOGIN -->
+    </section>
+    <!--/PAGE -->
+    @Scripts.Render("~/bundles/login.js")
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            App.setPage("login");  //Set current page
+            App.init(); //Initialise plugins and elements
+        });
+    </script>
+</body>
+</html>

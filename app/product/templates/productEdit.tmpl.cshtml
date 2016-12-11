@@ -1,0 +1,108 @@
+﻿
+@using Kenrapid.CRM.Web.Helpers
+@model Kenrapid.CRM.Web.Models.Product.EditProductForm
+
+@{
+    var product = Html.Angular().ModelFor("vm.product");
+}
+
+
+<div>
+    <form novalidate
+          ng-submit="vm.form.$valid && vm.update()"
+          name="vm.form">
+        <fieldset ng-disabled="vm.saving">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    {{vm.product.code}}
+                </h3>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger" ng-show="vm.errorMessage != null">
+                    {{vm.errorMessage}}
+                </div>
+                <div>
+                    <div class="row">
+                        <div class="col-md-6 col-xs-12">
+                            @product.FormGroupNewFor(x => x.Code)
+                        </div>
+                        <div class="col-md-6 col-xs-12">
+                            @product.FormGroupNewFor(x => x.VendorId)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-xs-12">
+                            @product.FormGroupNewFor(x => x.ColorId)
+                        </div>
+                        <div class="col-md-6 col-xs-12">
+                            @product.FormGroupNewFor(x => x.MaterialId)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-xs-12">
+                            @product.FormGroupNewFor(x => x.CategoryId)
+                        </div>
+                        <div class="col-md-6 col-xs-12">
+                            @product.FormGroupNewFor(x => x.Packaging)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-xs-12">
+                            @product.FormGroupNewFor(x => x.PCSSE)
+                        </div>
+                        <div class="col-md-6 col-xs-12">
+                            @product.FormGroupNewFor(x => x.CBM)
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 col-xs-4">
+                            @product.FormGroupNewFor(x => x.CMW)
+                        </div>
+                        <div class="col-md-4 col-xs-4">
+                            @product.FormGroupNewFor(x => x.CMD)
+                        </div>
+                        <div class="col-md-4 col-xs-4">
+                            @product.FormGroupNewFor(x => x.CMH)
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-xs-12">
+                            @product.FormGroupNewFor(x => x.Size)
+                        </div>
+                        <div class="col-md-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="" class="control-label">&nbsp;</label>
+                                <button type="button" class="btn btn-info form-control" data-ng-click="vm.addSize()">Add more size</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-xs-12 multiple-size" data-ng-repeat="ps in vm.product.sizes">
+                            <div class="form-group">
+                                <label for="" class="control-label">Size</label>
+                                <div>
+                                    <input type="text" placeholder="Size..." ng-model="ps.value" class="form-control" style="">
+                                    <a class="btn btn-sm btn-danger" data-ng-click="vm.remove(ps)">x</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            @product.FormGroupNewFor(x => x.Description)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger">Update</button>
+                <button type="button" class="btn btn-warning" ng-click="$parent.$dismiss()">Cancel</button>
+            </div>
+        </fieldset>
+    </form>
+
+</div>

@@ -1,0 +1,53 @@
+﻿@using Kenrapid.CRM.Web.Helpers
+@using Kenrapid.CRM.Web.Models.Material
+@model dynamic
+@{
+    ViewBag.Title = "Materials";
+}
+
+<div ng-controller="materialController as vm">
+    <h3 class="page-header">
+        <i class="fa fa-fw fa-magic fa-lg"></i>Materials
+        <a class="pull-right" href="" ng-click="vm.add()"><i class="fa fa-plus-circle"></i></a>
+    </h3>
+    <div class="search-box">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12 col-lg-3">
+                <input type="text" class="form-control" placeholder="Search for material..." ng-model="vm.filter.keyword" ng-change="vm.typeSearch()" />
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12 col-lg-3 pull-right">
+                <nav class="pull-right" ng-show="(vm.filter.totalItems / vm.filter.itemsPerPage) > 1">
+                    @(Html.Angular().UIPagination()
+                          .Model("vm.filter.page")
+                          .TotalItems("vm.filter.totalItems")
+                          .ItemsPerPage("vm.filter.itemsPerPage")
+                          .OnPageChanged("vm.pageChanged()")
+                          .FirstText("<<")
+                          .PreviousText("<")
+                          .NextText(">")
+                          .LastText(">>")
+                          .MaxSize(5)
+                          .Rotate(false)
+                          .BoundaryLinks(true)
+                          .DirectionLinks(true)
+                    )
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div ng-show="vm.isLoading">
+            <i class="fa fa-spinner fa-spin"></i> Loading...
+        </div>
+    </div>
+    <div class="row">
+        <div class="alert-container"></div>
+    </div>
+    <div class="panel-body">
+        <div class="row" ng-show="!vm.isLoading">
+            <ul class="list-group">
+                <material-details ng-repeat="material in vm.materials" material="material"></material-details>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+﻿@model string
+@(Html.Angular()
+    .NgTextBox("date")
+    .Classes("form-control")
+    .Watermark(ViewData.ModelMetadata.Watermark)
+    .Name(ViewData.ModelMetadata.PropertyName)
+    .Value(ViewData.Model)
+    .NgModel(Html.Angular().BindingForModel().ToHtmlString())
+    .IsRequired(ViewData.ModelMetadata.IsRequired)
+)

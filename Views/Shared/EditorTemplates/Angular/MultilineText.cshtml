@@ -1,0 +1,10 @@
+﻿@model string
+@(Html.Angular()
+    .NgMultilineText()
+    .NgModel(Html.Angular().BindingForModel().ToHtmlString())
+    .Classes("form-control")
+    .Watermark(ViewData.ModelMetadata.Watermark)
+    .Name(ViewData.ModelMetadata.PropertyName)
+    .IsRequired(ViewData.ModelMetadata.IsRequired)
+    .Text(ViewData.Model != null ? ViewData.Model.ToString() : "")
+)

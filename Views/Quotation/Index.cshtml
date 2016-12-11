@@ -1,0 +1,125 @@
+﻿@using Kenrapid.CRM.Web.Helpers
+@model Kenrapid.CRM.Web.Models.Quotation.QuotationModel
+
+@{
+    ViewBag.Title = "Quotation";
+    var m = Html.Angular().ModelFor("vm.quotation");
+}
+
+<div ng-controller="quotationController as vm">
+    <form novalidate
+          ng-submit="vm.form.$valid && vm.save()"
+          name="vm.form">
+        <h3 class="page-header">
+            <i class="fa fa-fw fa-archive fa-lg"></i>Edit Quotations
+            <button type="submit" class="btn btn-green pull-right" href=""><i class="fa fa-save"></i></button>
+        </h3>
+        <div class="alert alert-warning" ng-hide="vm.quotation.quotationItems.length > 0">
+            Please go to products page and add to quotation!
+        </div>
+        <div class="row">
+            <div class="alert-container margin-item"></div>
+        </div>
+        <fieldset ng-disabled="vm.saving" ng-show="vm.quotation.quotationItems.length > 0">
+            <div class="row">
+                <div class="col-md-2 col-xs-6">
+                    @m.FormGroupNewFor(x => x.CompanyName)
+                </div>
+                <div class="col-md-2 col-xs-6">
+                    @m.FormGroupNewFor(x => x.Attn)
+                </div>
+                <div class="col-md-2 col-xs-6">
+                    @m.FormGroupNewFor(x => x.RateOfExchange)
+                </div>
+                <div class="col-md-2 col-xs-6">
+                    @m.FormGroupNewFor(x => x.QuotationDate)
+
+                </div>
+                <div class="col-md-2 col-xs-6">
+                    <label class="control-label">&nbsp;</label>
+                    <div class="checkbox checkbox-primary">
+                        <input id="hasQuantity" type="checkbox" data-ng-model="vm.hasQuantity">
+                        <label for="hasQuantity">Apply Quantity?</label>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th rowspan="2">Code No</th>
+                        <th rowspan="2">Picture</th>
+                        <th rowspan="2">Description</th>
+                        <th rowspan="2">Size (cm)</th>
+                        <th rowspan="2">%</th>
+                        <th rowspan="2">Price FOB</th>
+                        <th rowspan="2">PCS/SE</th>
+                        <th colspan="3" class="text-center">CARTON MEASUREMENT</th>
+                        <th rowspan="2">CBM</th>
+                        <th rowspan="2" data-ng-show="vm.hasQuantity">ORDER QTY</th>
+                        <th rowspan="2" data-ng-show="vm.hasQuantity">CARTON QTY</th>
+                        <th rowspan="2" data-ng-show="vm.hasQuantity">TOTAL CBM</th>
+                        <th rowspan="2" data-ng-show="vm.hasQuantity">AMOUNT</th>
+                        <th rowspan="2"></th>
+                    </tr>
+                    <tr>
+                        <th>W</th>
+                        <th>D</th>
+                        <th>H</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="qi in vm.quotation.quotationItems">
+                        <th scope="row">{{qi.name}}</th>
+                        <td>
+                            <img ng-src="@Url.Content("~/Content/data/images/prod")/{{(qi.picture) ? qi.picture: 'no-image.png'}}"
+                                 alt="bootsnipp"
+                                 class="img-rounded img-responsive qtii" />
+                        </td>
+                        <td data-ng-bind="qi.material + ' ' + qi.category"></td>
+                        <td data-ng-bind="qi.size"></td>
+                        <td>
+                            <input type="text" class="form-control rate-number" aria-label="" data-ng-model="qi.rate" data-ng-change="vm.recalculate(qi);">
+                        </td>
+                        <td data-ng-bind="qi.priceFOB|currency"></td>
+                        <td data-ng-bind="qi.packingPCSSE"></td>
+                        <td data-ng-bind="qi.cartonMeasurementW"></td>
+                        <td data-ng-bind="qi.cartonMeasurementD"></td>
+                        <td data-ng-bind="qi.cartonMeasurementH"></td>
+                        <td data-ng-bind="qi.packingCBM|number:2"></td>
+                        <td data-ng-show="vm.hasQuantity">
+                            <input type="text" class="form-control rate-number" aria-label="" data-ng-model="qi.quantity" data-ng-change="vm.recalculate(qi);">
+                        </td>
+                        <td data-ng-show="vm.hasQuantity" data-ng-bind="qi.cartonQuantity|number:2"></td>
+                        <td data-ng-show="vm.hasQuantity" data-ng-bind="qi.totalCBM|number:2"></td>
+                        <td data-ng-show="vm.hasQuantity" data-ng-bind="qi.amount|currency"></td>
+                        <td><a class="pull-right cursor-link" data-ng-click="vm.remove(qi)" ng-disabled="vm.isRemoving"><i class="fa fa-fw fa-trash"></i></a></td>
+                    </tr>
+                </tbody>
+                <tfoot data-ng-show="vm.hasQuantity">
+                    <tr>
+                        <th colspan="11">&nbsp;</th>
+                        <td data-ng-bind="vm.quotation.totalOrderQuantity|number:2 "></td>
+                        <td data-ng-bind="vm.quotation.totalCartonQuantity|number:2"></td>
+                        <td data-ng-bind="vm.quotation.totalCBM|number:2"></td>
+                        <td>
+                            <strong  data-ng-bind="vm.quotation.totalAmount|currency"></strong>
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </tfoot>
+            </table>
+            <div class="row" ng-show="vm.quotation.quotationItems.length > 0">
+                <div class="col-lg-12 col-md-12 col-xs-12">
+                    <!--
+                    <a class="btn btn-info"><i class="fa fa-print"></i> Print</a>
+                        -->
+                    <a class="btn btn-green" href="@(Html.BuildUrlFromExpression<QuotationController>(c => c.Export()))"><i class="fa fa-file-excel-o"></i> Export to Excel</a>
+                    <!--
+                    <a class="btn btn-red"><i class="fa fa-trash-o"></i> Clear All</a>
+                    -->
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

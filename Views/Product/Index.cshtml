@@ -1,0 +1,59 @@
+﻿@using AutoMapper.QueryableExtensions
+@using Kenrapid.CRM.Web.Data
+@using Kenrapid.CRM.Web.Infrastructure
+@using Kenrapid.CRM.Web.Models.Category
+@using Kenrapid.CRM.Web.Models.Material
+@using Kenrapid.CRM.Web.Models.Vendor
+@{
+    ViewBag.Title = "Products";
+}
+<div ng-controller="productController as vm">
+    <h3 class="page-header">
+        <i class="fa fa-fw fa-archive fa-lg"></i>Products
+        <a class="pull-right" href="" ng-click="vm.add()"><i class="fa fa-plus-circle"></i></a>
+    </h3>
+    <div class="row" ng-show="!vm.isSearchFormInit">
+        <div class="col-md-3 col-xs-6 col-lg-2">
+            <div class="form-group">
+                <label>Factory</label>
+                @Html.Angular().UIDropDownFilter("vm.filter.factory", "factory.id as factory.name for factory in vm.factories").NgChange("vm.search()")
+            </div>
+        </div>
+        <div class="col-md-3 col-xs-6 col-lg-2">
+            <div class="form-group">
+                <label>Material</label>
+                @Html.Angular().UIDropDownFilter("vm.filter.material", "material.id as material.name for material in vm.materials").NgChange("vm.search()")
+            </div>
+        </div>
+        <div class="col-md-3 col-xs-6 col-lg-2">
+            <div class="form-group">
+                <label>Category</label>
+                @Html.Angular().UIDropDownFilter("vm.filter.category", "category.id as category.name for category in vm.categories").NgChange("vm.search()")
+            </div>
+        </div>
+        <div class="col-md-3 col-xs-6 col-lg-2">
+            <div class="form-group">
+                <label>Keywords</label>
+                <input type="text" class="form-control" placeholder="Search for products" data-ng-model="vm.filter.keyword" ng-change="vm.typeSearch()" />
+            </div>
+        </div>
+    </div>
+    <div>
+        <div ng-show="vm.isLoading">
+            <i class="fa fa-spinner fa-spin"></i> Loading...
+        </div>
+    </div>
+    <div class="row" ng-show="!vm.isLoading">
+        <product-details ng-repeat="product in vm.products" product="product"></product-details>
+    </div>
+    <div class="row">
+        <div class="alert-container"></div>
+    </div>
+    <div class="row" ng-show="!vm.isLoading && vm.showLoadMore()">
+        <div class="acenter">
+            <a class="btn btn-green" ng-click="vm.loadMore()" ng-disabled="vm.isLoadingMore">
+                <i ng-class="{'fa fa-spinner fa-spin' : (vm.isLoadingMore), 'fa fa-plus-square' : (!vm.isLoadingMore)}"></i>&nbsp;Load More {{vm.nextCount()}}...
+            </a>
+        </div>
+    </div>
+</div>

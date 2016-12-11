@@ -1,0 +1,17 @@
+﻿@model string
+@using Kenrapid.CRM.Web.Data
+@using Kenrapid.CRM.Web.Infrastructure
+@{
+    var dbContext = Context.GetContainer().GetInstance<KenrapidDbContext>();
+    var availableUsers = dbContext.Users.Select(u => new SelectListItem
+    {
+        Text = u.UserName,
+        Value = u.UserName
+    }).ToArray();
+}
+@Html.DropDownList("", availableUsers, 
+    new { 
+        @class = "form-control" ,
+        ng_model = Html.Angular().BindingForModel()
+    }
+)
