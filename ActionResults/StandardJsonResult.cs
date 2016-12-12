@@ -37,6 +37,7 @@ namespace Kenrapid.CRM.Web.ActionResults
                 throw new InvalidOperationException("GET access is not allowed.  Change the JsonRequestBehavior if you need GET access.");
             }
 
+
             var response = context.HttpContext.Response;
             response.ContentType = string.IsNullOrEmpty(ContentType) ? "application/json" : ContentType;
 

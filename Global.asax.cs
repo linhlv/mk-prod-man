@@ -16,6 +16,7 @@ using Kenrapid.CRM.Web.Infrastructure;
 using Kenrapid.CRM.Web.Infrastructure.DependencyRegistry;
 using Kenrapid.CRM.Web.Data;
 using System.Data.Entity;
+using System.Web.Http;
 using Kenrapid.CRM.Web.Migrations;
 using Kenrapid.CRM.Web.Infrastructure.Tasks;
 
@@ -41,6 +42,8 @@ namespace Kenrapid.CRM.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+           
+            //config.EnableCors();
 
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<KenrapidDbContext, FailTrackerConfiguration>());
 

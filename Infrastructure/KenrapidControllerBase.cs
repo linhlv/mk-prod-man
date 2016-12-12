@@ -50,5 +50,10 @@ namespace Kenrapid.CRM.Web.Infrastructure
         {
             return new StandardJsonResult<T> { Data = data };
         }
+
+        protected StandardJsonResult<T> JsonSuccess<T>(T data, JsonRequestBehavior behavior)
+        {
+            return new StandardJsonResult<T> { Data = data, JsonRequestBehavior = behavior};
+        }
     }
 }

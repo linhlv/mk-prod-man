@@ -38,6 +38,24 @@ namespace Kenrapid.CRM.Web.Controllers
             return JsonSuccess(categories);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        public JsonResult GetMenu()
+        {
+            var queryData = _context.Categories.AsQueryable();
+
+            var count = queryData.Count();
+
+            var models = queryData
+                .OrderByDescending(o => o.LastModifiedDate)
+                .Project().To<CategoryViewModel>();
+
+            return JsonSuccess<List<CategoryViewModel>>(models.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult Search(DataFilterViewModel dataFilterViewModel)
         {
             var queryData = _context.Categories.AsQueryable();
