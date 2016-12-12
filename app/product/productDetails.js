@@ -34,8 +34,12 @@
         };
 
         vm.productImageUrl = function () {
-            var url = window.relativeUrl + 'Content/data/images/prod/' +
-            ((vm.product.productImages && vm.product.productImages.length > 0) ? vm.product.productImages[0].imageFileUrl : 'no-image.png');
+            //var url = window.relativeUrl + 'Content/data/images/prod/' +
+            //((vm.product.productImages && vm.product.productImages.length > 0) ? vm.product.productImages[0].imageFileUrl : 'no-image.png');
+
+            var url = window.relativeUrl + 'Images?filename=' +
+            ((vm.product.productImages && vm.product.productImages.length > 0) ? vm.product.productImages[0].imageFileUrl : 'no-image.png')
+            + '&w=470&h=470';
 
             return url;
         };

@@ -8,8 +8,18 @@ using Simple.ImageResizer.MvcExtensions;
 
 namespace Kenrapid.CRM.Web.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ImagesController : Controller
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="w"></param>
+        /// <param name="h"></param>
+        /// <returns></returns>
         [OutputCache(VaryByParam = "*", Duration = 60 * 60 * 24 * 365)]
         public ImageResult Index(string filename, int w = 0, int h = 0)
         {

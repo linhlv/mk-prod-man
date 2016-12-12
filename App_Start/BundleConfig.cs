@@ -88,6 +88,9 @@ namespace Kenrapid.CRM.Web
                .Include("~/Scripts/uniform/jquery.uniform.min.js")
                .Include("~/Scripts/uniform.js")
            );
+
+           BundleTable.EnableOptimizations = false;
+
         }
     }
 }

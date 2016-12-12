@@ -1375,7 +1375,10 @@ h6.prod-code {
 }
 
 .crm .pi {
+    min-height: 490px;
+    /*
     min-height: 530px;
+        */
 }
 
 .qpi {
