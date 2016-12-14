@@ -39,7 +39,7 @@
 
             var url = window.relativeUrl + 'Images?filename=' +
             ((vm.product.productImages && vm.product.productImages.length > 0) ? vm.product.productImages[0].imageFileUrl : 'no-image.png')
-            + '&w=470&h=470';
+            + '&w=480&h=480';
 
             return url;
         };
