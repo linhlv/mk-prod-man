@@ -16,10 +16,23 @@ namespace Kenrapid.CRM.Web.Appiume.Extensions
             return (extension.ToLower() == "jpg") ? "jpeg" : extension;
         }
 
+        /*
         public static string GetPathForResizedImage(this string orgPath, int width = 0, int height = 0)
         {
             var fileInfo = new FileInfo(orgPath);
             string resizedPath = Path.Combine(fileInfo.DirectoryName, "resized", width + "x" + height,
+                                              Path.GetFileName(orgPath));
+            return resizedPath;
+        }
+        */
+
+        public static string GetPathForResizedImage(this string orgPath, int width = 0, int height = 0, bool nobg = false)
+        {
+            var fileInfo = new FileInfo(orgPath);
+            var folderName = width + "x" + height;
+            if (nobg)
+                folderName += "_nobg";
+            string resizedPath = Path.Combine(fileInfo.DirectoryName, "resized", folderName,
                                               Path.GetFileName(orgPath));
             return resizedPath;
         }

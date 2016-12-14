@@ -10,7 +10,7 @@
         <p>{{vm.product.name}}</p>
         <uib-carousel interval="myInterval" no-wrap="noWrapSlides">
             <uib-slide ng-repeat="pic in vm.product.productImages" active="pic.active">
-                <img ng-src="@Url.Content("~/Content/data/images/prod")/{{pic.imageFileUrl}}" style="margin: auto;">
+                <img ng-src="@Url.Content("~/Images")?filename={{pic.imageFileUrl}}&w=1024&h=1024&nobg=true" style="margin: auto;">
                 <div class="carousel-caption">
                     <p>
                         <a class="btn btn-danger" ng-disabled="vm.deleting" ng-click="vm.deleteImage(pic)"><i ng-class="{'fa fa-spinner fa-spin' : (vm.deleting), 'fa fa-fw fa-trash' : (!vm.deleting)}"></i></a>
