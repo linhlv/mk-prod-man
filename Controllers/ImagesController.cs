@@ -21,6 +21,7 @@ namespace Kenrapid.CRM.Web.Controllers
         /// <param name="h"></param>
         /// <returns></returns>
         [OutputCache(VaryByParam = "*", Duration = 60 * 60 * 24 * 365)]
+        [AllowAnonymous]
         public ImageResult Index(string filename, int w = 0, int h = 0)
         {
             var filepath = Path.Combine(Server.MapPath("~/Content/data/images/prod"), filename);

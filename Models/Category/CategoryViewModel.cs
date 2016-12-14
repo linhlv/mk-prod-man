@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Kenrapid.CRM.Web.Models.Material;
 
 namespace Kenrapid.CRM.Web.Models.Category
 {
@@ -16,5 +17,10 @@ namespace Kenrapid.CRM.Web.Models.Category
 
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<MaterialViewModel> Materials { get; set; }
     }
 }

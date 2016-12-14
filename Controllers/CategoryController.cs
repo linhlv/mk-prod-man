@@ -46,12 +46,28 @@ namespace Kenrapid.CRM.Web.Controllers
         public JsonResult GetMenu()
         {
             var queryData = _context.Categories.AsQueryable();
-
-            var count = queryData.Count();
+            var materials = _context.Materials.Project().To<MaterialViewModel>().ToList();
 
             var models = queryData
                 .OrderByDescending(o => o.LastModifiedDate)
-                .Project().To<CategoryViewModel>();
+                .Project().To<CategoryViewModel>().ToList();
+
+            foreach (var c in models)
+            {
+                foreach (var m in materials)
+                {
+                    if (_context.Products.Any(p => p.CategoryId == c.Id && p.MaterialId == m.Id))
+                    {
+                        if (c.Materials==null)
+                        {
+                            c.Materials = new List<MaterialViewModel>();
+                        }
+                        c.Materials.Add(m);
+                    }
+                }
+            }
+
+            models.RemoveAll(m => m.Materials == null);
 
             return JsonSuccess<List<CategoryViewModel>>(models.ToList(), JsonRequestBehavior.AllowGet);
         }

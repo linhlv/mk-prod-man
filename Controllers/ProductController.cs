@@ -44,7 +44,12 @@ namespace Kenrapid.CRM.Web.Controllers
         {
             get
             {
-                return Server.MapPath("~/Content/quotations/" + _currentUser.User.Id + ".qtdata");
+                if (_currentUser?.User != null )
+                {
+                    return Server.MapPath("~/Content/quotations/" + _currentUser.User.Id + ".qtdata");
+                }
+
+                return Server.MapPath("~/Content/quotations/remote_user.qtdata");
             }
         }
 
@@ -66,6 +71,7 @@ namespace Kenrapid.CRM.Web.Controllers
             return q;
         }
 
+        [AllowAnonymous]
         public JsonResult Search(ProductFilterViewModel productFilterViewModel)
         {
             var queryData = _context.Products.AsQueryable();
@@ -119,11 +125,7 @@ namespace Kenrapid.CRM.Web.Controllers
                 }
             }
 
-
-        //    list[0].LastPriceDate = DateTime.Now;
-
-
-            return JsonSuccess<PagedViewModel<ProductViewModel>>(new PagedViewModel<ProductViewModel>(list, count));
+            return JsonSuccess<PagedViewModel<ProductViewModel>>(new PagedViewModel<ProductViewModel>(list, count), JsonRequestBehavior.AllowGet);
         }
 
 
