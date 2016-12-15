@@ -19,16 +19,16 @@ namespace Kenrapid.CRM.Web.Controllers
         private readonly KenrapidDbContext _context;
 
         public CategoryController(KenrapidDbContext context)
-		{
-			_context = context;
-		}
+        {
+            _context = context;
+        }
 
 
         // GET: Category
         public ActionResult Index()
         {
             var models = _context.Categories.Project().To<CategoryViewModel>().ToArray();
-            return View(models);            
+            return View(models);
         }
 
         public JsonResult All()
@@ -36,6 +36,22 @@ namespace Kenrapid.CRM.Web.Controllers
             var categories = _context.Categories
                 .Project().To<CategoryViewModel>();
             return JsonSuccess(categories);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        public JsonResult GetCategory(int id = 0)
+        {
+            var category = _context.Categories.FirstOrDefault(c=>c.Id==id);
+            if (category!=null)
+            {
+                return Json(new { Id = category.Id, Name = category.Name }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -58,7 +74,7 @@ namespace Kenrapid.CRM.Web.Controllers
                 {
                     if (_context.Products.Any(p => p.CategoryId == c.Id && p.MaterialId == m.Id))
                     {
-                        if (c.Materials==null)
+                        if (c.Materials == null)
                         {
                             c.Materials = new List<MaterialViewModel>();
                         }

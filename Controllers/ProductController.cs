@@ -71,6 +71,28 @@ namespace Kenrapid.CRM.Web.Controllers
             return q;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        public JsonResult GetProduct(int id = 0)
+        {
+            var product = _context.Products
+                .Include(p => p.ProductImages)
+                .Include(p => p.ProductSizes)
+                .Project().To<ProductViewModel>()
+                .FirstOrDefault(p => p.Id == id);
+            if (product != null)
+            {
+                return Json(product, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(null, JsonRequestBehavior.AllowGet);
+        }
+
+
         [AllowAnonymous]
         public JsonResult Search(ProductFilterViewModel productFilterViewModel)
         {

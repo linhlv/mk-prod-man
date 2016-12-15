@@ -563,6 +563,7 @@
   <ItemGroup>
     <Compile Include="ActionResults\StandardJsonResult.cs" />
     <Compile Include="Appiume\Extensions\FilesystemExtensionMethods.cs" />
+    <Compile Include="Appiume\Extensions\ImagePresentingFixedFrameResult.cs" />
     <Compile Include="Appiume\Extensions\ImagePresentingResult.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />

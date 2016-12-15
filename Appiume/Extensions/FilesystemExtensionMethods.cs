@@ -36,5 +36,14 @@ namespace Kenrapid.CRM.Web.Appiume.Extensions
                                               Path.GetFileName(orgPath));
             return resizedPath;
         }
+
+        public static string GetPathForResizedImageFixedFrame(this string orgPath, int width = 0, int height = 0)
+        {
+            var fileInfo = new FileInfo(orgPath);
+            var folderName = width + "x" + height + "_fixed_frame";
+            string resizedPath = Path.Combine(fileInfo.DirectoryName, "resized", folderName,
+                                              Path.GetFileName(orgPath));
+            return resizedPath;
+        }
     }
 }
