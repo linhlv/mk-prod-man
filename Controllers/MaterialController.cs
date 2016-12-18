@@ -23,6 +23,38 @@ namespace Kenrapid.CRM.Web.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        public JsonResult Get(int id = 0)
+        {
+            var material = _context.Categories.FirstOrDefault(m => m.Id == id);
+            if (material != null)
+            {
+                return Json(new { Id = material.Id, Name = material.Name }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(null, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        public JsonResult GetMenu()
+        {
+            var materials = _context.Materials.Project().To<MaterialViewModel>().ToList();
+
+            materials.RemoveAll(m => !_context.Products.Any(p => p.MaterialId == m.Id));
+
+            return JsonSuccess<List<MaterialViewModel>>(materials.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
 
         // GET: Category
         public ActionResult Index()

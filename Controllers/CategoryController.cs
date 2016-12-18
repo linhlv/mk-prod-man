@@ -43,7 +43,7 @@ namespace Kenrapid.CRM.Web.Controllers
         /// </summary>
         /// <returns></returns>
         [AllowAnonymous]
-        public JsonResult GetCategory(int id = 0)
+        public JsonResult Get(int id = 0)
         {
             var category = _context.Categories.FirstOrDefault(c=>c.Id==id);
             if (category!=null)
@@ -52,6 +52,18 @@ namespace Kenrapid.CRM.Web.Controllers
             }
 
             return Json(null, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        public JsonResult GetByMaterial(int id=0)
+        {
+            var queryData = _context.Categories.Project().To<CategoryViewModel>().AsQueryable();
+            queryData = queryData.Where(c => _context.Products.Any(p => p.CategoryId == c.Id && p.MaterialId == id));
+            return JsonSuccess<List<CategoryViewModel>>(queryData.ToList(), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
